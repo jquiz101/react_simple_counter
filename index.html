@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Simple Counter</title>
+</head>
+<body>
+
+    <!-- React app will show up in this div -->
+    <div id="root"></div>
+
+
+
+    <!-- Include the React Library -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+    <!-- Include the React Dom Library -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Enables us to use JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    
+    <script type="text/babel">
+
+        // Class component, has access to State and Lifecycle Hooks
+        class Counter extends React.Component {
+
+            // predefined object with properties, only available with class component
+            state = {
+                counter: this.props.counterStart || 0,
+                name: "Joe"
+            }
+
+            incrementClicked = (event) => {
+                this.setState((state, props) => (
+                    {                     
+                        counter: state.counter + 1
+                    }
+                ))
+            }
+
+            decrementClicked = (event) => {
+                if (this.state.counter <= 0) {
+                    return
+                }
+
+                this.setState((state, props) => (
+                    {                     
+                        counter: state.counter - 1
+                    }
+                ))
+            }
+
+            render(){
+                console.log(this.state)
+                return (
+                    <div className="Counter">
+                        <button onClick={this.decrementClicked}>-</button>
+                        &nbsp;{this.state.counter}&nbsp;
+                        <button onClick={this.incrementClicked}>+</button>                        
+                    </div>
+                )
+
+            }
+        }
+
+        // function components look like JS functions but are named with capital letters
+        function App(props){            
+            return (
+                <div className="App">
+                    Hello from App component
+                    <Counter counterStart={15} />
+                    <Counter counterStart={1} />
+                    <Counter />
+                </div>
+            )
+        }
+
+
+        const reactAppContainer = document.getElementById("root")
+        const root = ReactDOM.createRoot(reactAppContainer)
+
+        // root.render(<div>eric</div>)
+        root.render(<App />)
+
+    </script>
+</body>
+</html>
